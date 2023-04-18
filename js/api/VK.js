@@ -7,7 +7,9 @@
 class VK {
   static ACCESS_TOKEN =
     "052ec054052ec054052ec0543f063d62ea0052e052ec0546110b1c17168e0e97c2f4d30";
-  static lastCallback = Object;
+  static lastCallback = {
+    callback: VK.get("7451160", VK.processData),
+  };
 
   /**
    * Получает изображения
@@ -16,7 +18,7 @@ class VK {
     let script = document.createElement("SCRIPT");
     script.src = `https://api.vk.com/method/photos.get?owner_id=${id}&album_id=profile&photo_sizes=1&count=1000&access_token=${this.ACCESS_TOKEN}&v=5.131&callback=callbackFn`;
     document.getElementsByTagName("head")[0].appendChild(script);
-    callbackFn = function (result) {
+    window.callbackFn = function (result) {
       callback(result);
     };
   }
@@ -38,10 +40,8 @@ class VK {
     for (const photo of photoArray) {
       photoMaxSize.push(photo.sizes.at(-1).url);
     }
-    VK.lastCallback = photoMaxSize;
-    console.log(VK.lastCallback);
+    VK.lastCallback.listFromCallback = photoMaxSize;
+    VK.lastCallback.callback = () => {};
+    VK.lastCallback.allert = console.log(VK.lastCallback.listFromCallback);
   }
 }
-
-let callbackFn;
-VK.get("7451160", VK.processData);
