@@ -17,7 +17,7 @@ class VK {
   /**
    * Получает изображения
    * */
-  static get(id = "7451160") {
+  static get(id = "") {
     let script = document.createElement("SCRIPT");
     script.src = `https://api.vk.com/method/photos.get?owner_id=${id}&album_id=profile&photo_sizes=1&count=1000&access_token=${this.ACCESS_TOKEN}&v=5.131&callback=VK.lastCallback.callbackFn`;
     document.getElementsByTagName("head")[0].appendChild(script);
