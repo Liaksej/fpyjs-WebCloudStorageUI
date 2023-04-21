@@ -24,26 +24,22 @@ class SearchBlock {
         .getElementsByTagName("input")[0];
       if (input.value.trim()) {
         if (event.target === document.querySelector(".replace")) {
-          document.querySelector(".images-list").remove();
-          VK.get(input.value);
-          setTimeout(() => {
-            let photoList = VK.lastCallback.listFromCallback;
-            for (const photo of photoList) {
-              console.log(photo);
-              App.imageViewer;
-            }
-          }, 2000);
-          return;
+          document.querySelector(
+            ".images-list .grid"
+          ).firstElementChild.innerHTML = "";
         }
-        if (event.target === document.querySelector(".add")) {
+        if (
+          event.target === document.querySelector(".add") ||
+          event.target === document.querySelector(".replace")
+        ) {
           VK.get(input.value);
-          setTimeout(() => {
-            let photoList = VK.lastCallback.listFromCallback;
-            for (const photo of photoList) {
-              console.log(photo);
-              App.imageViewer;
+          let interval = setInterval(() => {
+            if (VK.lastCallback.listFromCallback) {
+              let photoList = VK.lastCallback.listFromCallback;
+              App.imageViewer.drawImages();
+              clearInterval(interval);
             }
-          }, 2000);
+          }, 0);
         }
       }
     }
