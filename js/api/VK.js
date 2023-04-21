@@ -29,11 +29,16 @@ class VK {
    */
   static processData(result) {
     document.head.querySelector("script").remove();
-    if (!result) {
+    console.log(result);
+    if (!result || result.error) {
       alert(
-        "Запрос данных в VK не прошел. Проверьте подключение к Интернету и попробуйте еще раз."
+        result.error.error_msg ??
+          "Запрос данных в VK не прошел. Проверьте подключение к Интернету и попробуйте еще раз."
       );
       return;
+    }
+    if (VK.lastCallback.listFromCallback) {
+      VK.lastCallback.listFromCallback = [];
     }
     const photoArray = result.response.items;
     const photoMaxSize = [];
@@ -41,7 +46,6 @@ class VK {
       photoMaxSize.push(photo.sizes.at(-1).url);
     }
     VK.lastCallback.listFromCallback = photoMaxSize;
-    VK.lastCallback.callbackFn = () => {};
     // VK.lastCallback.allert = console.log(VK.lastCallback.listFromCallback);
   }
 }
