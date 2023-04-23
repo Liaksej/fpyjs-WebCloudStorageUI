@@ -24,9 +24,7 @@ class SearchBlock {
         .getElementsByTagName("input")[0];
       if (input.value.trim()) {
         if (event.target === document.querySelector(".replace")) {
-          document.querySelector(
-            ".images-list .grid"
-          ).firstElementChild.innerHTML = "";
+          App.imageViewer.clear();
         }
         if (
           event.target === document.querySelector(".add") ||
