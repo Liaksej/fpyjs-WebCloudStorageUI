@@ -30,12 +30,8 @@ class ImageViewer {
 
     // Одинарный клик по превьюшке фотографии
     this.imageList.addEventListener("click", (event) => {
-      Array.from(this.imageList.querySelectorAll("img")).map((item) => {
-        if (item.classList.contains("selected"))
-          item.classList.remove("selected");
-      });
       if (event.target.tagName.toLowerCase() === "img") {
-        event.target.classList.add("selected");
+        event.target.classList.toggle("selected");
       }
       this.checkButtonText();
     });
@@ -61,7 +57,7 @@ class ImageViewer {
     this.element
       .querySelector(".show-uploaded-files")
       .addEventListener("click", () => {
-        App.getModal();
+        // App.getModal();
         /**
          * В содержимом модального окна необходимо отобразить большой лоадер. Для этого используйте блок '<i class="asterisk loading icon massive"></i>'.
          * Открывайте модальное окно с помощью метода open.
@@ -71,10 +67,15 @@ class ImageViewer {
       });
     // Клик по кнопке "Отправить на диск"
     this.element.querySelector(".send").addEventListener("click", () => {
-      App.getModal();
-      this.imageList.querySelector(".selected");
+      const sendModal = App.getModal("fileUploader");
+      const allSelectedImgs = this.imageList.querySelectorAll(".selected");
+      sendModal.open("file-uploader-modal");
+
+      sendModal.showImages(
+        Array.from(allSelectedImgs).map((image) => image.src)
+      );
+
       /**
-       * Откройте полученное модальное окно (с помощью метода open).
        * Отрисуйте все модальные изображения в открытом модальном окне с помощью метода showImages у объекта модального окна
        */
     });
@@ -84,7 +85,7 @@ class ImageViewer {
    * Очищает отрисованные изображения
    */
   clear() {
-    this.imageList.innerHTML = "";
+    document.querySelector(".images-list .grid .row").innerHTML = "";
   }
 
   /**
