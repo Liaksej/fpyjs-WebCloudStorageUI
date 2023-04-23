@@ -3,21 +3,22 @@
  * Используется как базовый класс всплывающего окна
  */
 class BaseModal {
-  constructor( element ) {
-
+  constructor(element) {
+    this.domElement = element[0];
+    this.semanticElement = element.slice(1);
   }
 
   /**
    * Открывает всплывающее окно
    */
-  open() {
-
+  open(type) {
+    $(`.ui.modal.${type}`).modal("show");
   }
 
   /**
    * Закрывает всплывающее окно
    */
   close() {
-
+    $(`.ui.modal`).modal("hide");
   }
 }
