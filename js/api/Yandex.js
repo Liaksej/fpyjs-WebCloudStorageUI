@@ -21,7 +21,16 @@ class Yandex {
   /**
    * Метод загрузки файла в облако
    */
-  static uploadFile(path, url, callback) {}
+  static uploadFile(path, url, callback) {
+    createRequest({
+      method: "POST",
+      path: "/resources/upload",
+      data: { path: `${path}`, url: `${url}` },
+      headers: {
+        Authorization: `${localStorage.getItem("yaToken")}`,
+      },
+    });
+  }
 
   /**
    * Метод удаления файла из облака
@@ -29,7 +38,7 @@ class Yandex {
   static removeFile(path, callback) {
     createRequest({
       method: "DELETE",
-      path: "/resources/upload",
+      path: "/resources",
       data: { path: `${path}` },
       headers: {
         Authorization: `${localStorage.getItem("yaToken")}`,
@@ -53,7 +62,11 @@ class Yandex {
   /**
    * Метод скачивания файлов
    */
-  static downloadFileByUrl(url) {}
+  static downloadFileByUrl(url) {
+    const link = document.createElement("a");
+    link.href = url;
+    link.click();
+  }
 }
 
 Yandex.getToken();
