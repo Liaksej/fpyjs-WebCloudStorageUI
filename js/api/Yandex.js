@@ -16,6 +16,11 @@ class Yandex {
         prompt("Введите OAUth-токен от Яндекс.Диска")
       );
     }
+    // localStorage.removeItem("yaToken");
+    // localStorage.setItem(
+    //   "yaToken",
+    //   prompt("Введите OAUth-токен от Яндекс.Диска")
+    // );
   }
 
   /**
@@ -40,10 +45,11 @@ class Yandex {
     createRequest({
       method: "DELETE",
       path: "/resources",
-      data: { path: `${path}` },
+      data: { way: `${path}` },
       headers: {
         Authorization: `OAuth ${localStorage.getItem("yaToken")}`,
       },
+      callback: callback,
     });
   }
 

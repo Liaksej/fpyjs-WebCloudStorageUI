@@ -58,6 +58,7 @@ class ImageViewer {
       .querySelector(".show-uploaded-files")
       .addEventListener("click", () => {
         const sendModal = App.getModal("filePreviewer");
+
         if (
           !document.querySelector(
             ".uploaded-previewer-modal .content .asterisk"
@@ -67,32 +68,24 @@ class ImageViewer {
             ".uploaded-previewer-modal .content"
           ).innerHTML = '<i class="asterisk loading icon massive"></i>';
         }
+
         sendModal.open("uploaded-previewer-modal");
+
         Yandex.getUploadedFiles((json) => {
           sendModal.showImages(json);
         });
-        // sendModal.showImages(
-        //   Array.from(allSelectedImgs).map((image) => image.src)
-        // );
-
-        /**
-         * Получите все загруженные изображения с помощью метода Yandex.getUploadedFiles.
-         * После выполнения метода (в колбеке) отрисовывайте все полученные изображения с помощью метода showImages у объекта модального окна.
-         */
       });
+
     // Клик по кнопке "Отправить на диск"
     this.element.querySelector(".send").addEventListener("click", () => {
       const sendModal = App.getModal("fileUploader");
       const allSelectedImgs = this.imageList.querySelectorAll(".selected");
+
       sendModal.open("file-uploader-modal");
 
       sendModal.showImages(
         Array.from(allSelectedImgs).map((image) => image.src)
       );
-
-      /**
-       * Отрисуйте все модальные изображения в открытом модальном окне с помощью метода showImages у объекта модального окна
-       */
     });
   }
 

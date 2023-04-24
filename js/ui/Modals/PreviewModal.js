@@ -23,15 +23,12 @@ class PreviewModal extends BaseModal {
     this.domElement
       .querySelector(".content")
       .addEventListener("click", (event) => {
-        if (
-          event.target ===
-          document.querySelector(".content .image-preview-container .delete")
-        ) {
+        if (event.target.classList.contains("delete")) {
           event.target
             .querySelector("i")
             .classList.add("icon", "spinner", "loading");
           event.target.classList.add("disabled");
-          Yandex.removeFile(path, (response) => {
+          Yandex.removeFile(event.target.dataset.path, (response) => {
             if (response === null) {
               event.target.closest(".image-preview-container").remove();
             }
