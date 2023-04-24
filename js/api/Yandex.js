@@ -29,6 +29,7 @@ class Yandex {
       headers: {
         Authorization: `OAuth ${localStorage.getItem("yaToken")}`,
       },
+      callback: callback,
     });
   }
 
