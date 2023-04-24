@@ -35,11 +35,8 @@ class PreviewModal extends BaseModal {
           });
         }
 
-        if (
-          event.target ===
-          document.querySelector(".content .image-preview-container .download")
-        ) {
-          Yandex.downloadFileByUrl(url);
+        if (event.target.classList.contains("download")) {
+          Yandex.downloadFileByUrl(event.target.dataset.file);
         }
       });
   }
