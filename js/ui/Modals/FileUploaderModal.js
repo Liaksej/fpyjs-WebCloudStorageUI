@@ -98,8 +98,7 @@ class FileUploaderModal extends BaseModal {
         () => {
           imageContainer.remove();
           if (
-            document.querySelector(".uploaded-previewer-modal .content")
-              .children
+            document.querySelectorAll(".image-preview-container").length === 0
           ) {
             this.close();
           }
