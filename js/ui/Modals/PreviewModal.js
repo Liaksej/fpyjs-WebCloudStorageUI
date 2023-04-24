@@ -60,6 +60,14 @@ class PreviewModal extends BaseModal {
    * */
   formatDate(date) {
     // Метод formatDate преобразует полученную дату от Yandex API (ISO) в удобный для отображения формат: 30 декабря 2021 г. в 23:40
+    const data = new Date(date);
+    return data.toLocaleDateString("ru-RU", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      hour: "numeric",
+      minute: "numeric",
+    });
   }
 
   /**
@@ -73,15 +81,21 @@ class PreviewModal extends BaseModal {
                   <tr><th>Имя</th><th>Создано</th><th>Размер</th></tr>
                 </thead>
                 <tbody>
-                  <tr><td>${item.name}</td><td>${item.exif.date_time}</td><td>${item.size}Кб</td></tr>
+                  <tr><td>${item.name}</td><td>${this.formatDate(
+      item.created
+    )}</td><td>${(item.size / 1024).toFixed(2)}Кб</td></tr>
                 </tbody>
               </table>
               <div class="buttons-wrapper">
-                <button class="ui labeled icon red basic button delete" data-path=${item.path}>
+                <button class="ui labeled icon red basic button delete" data-path="${
+                  item.path
+                }">
                   Удалить
                   <i class="trash icon"></i>
                 </button>
-                <button class="ui labeled icon violet basic button download" data-file=${item.file}>
+                <button class="ui labeled icon violet basic button download" data-file=${
+                  item.file
+                }>
                   Скачать
                   <i class="download icon"></i>
                 </button>
