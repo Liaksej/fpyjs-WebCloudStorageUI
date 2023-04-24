@@ -48,7 +48,7 @@ const createRequest = (options = {}) => {
       let result = await response.json();
       console.log(result.message);
     } else {
-      return response.status;
+      return options.callback();
     }
   }
 
