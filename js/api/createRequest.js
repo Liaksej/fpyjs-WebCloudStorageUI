@@ -33,7 +33,9 @@ const createRequest = (options = {}) => {
     let response = await fetch(
       Yandex.HOST +
         options.path +
-        (options.data.way ? `?path=${options.data.way}` : "") +
+        (options.data.way
+          ? `?path=${encodeURIComponent(options.data.way)}`
+          : "") +
         (options.data.url
           ? `&url=${encodeURIComponent(options.data.url)}`
           : "") +

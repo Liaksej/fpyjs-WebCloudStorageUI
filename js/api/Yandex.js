@@ -30,7 +30,7 @@ class Yandex {
     createRequest({
       method: "POST",
       path: "/resources/upload",
-      data: { way: `${path}`, url: `${url}` },
+      data: { way: path, url: url },
       headers: {
         Authorization: `OAuth ${localStorage.getItem("yaToken")}`,
       },
@@ -45,7 +45,7 @@ class Yandex {
     createRequest({
       method: "DELETE",
       path: "/resources",
-      data: { way: `${path}` },
+      data: { way: path },
       headers: {
         Authorization: `OAuth ${localStorage.getItem("yaToken")}`,
       },
