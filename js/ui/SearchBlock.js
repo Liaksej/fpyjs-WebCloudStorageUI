@@ -23,17 +23,25 @@ class SearchBlock {
         .querySelector(".search-block")
         .getElementsByTagName("input")[0];
       if (input.value.trim()) {
-        if (event.target === document.querySelector(".replace")) {
-          App.imageViewer.clear();
-        }
-        if (
-          event.target === document.querySelector(".add") ||
-          event.target === document.querySelector(".replace")
-        ) {
+        if (event.target === document.querySelector(".add")) {
           VK.get(input.value);
           let interval = setInterval(() => {
             if (VK.lastCallback.listFromCallback) {
-              let photoList = VK.lastCallback.listFromCallback;
+              VK.lastCallback.listFromCallback;
+              App.imageViewer.drawImages();
+              clearInterval(interval);
+            }
+          }, 0);
+        }
+        if (event.target === document.querySelector(".replace")) {
+          if (VK.lastCallback.listFromCallback) {
+            delete VK.lastCallback.listFromCallback;
+          }
+          VK.get(input.value);
+          let interval = setInterval(() => {
+            if (VK.lastCallback.listFromCallback) {
+              VK.lastCallback.listFromCallback;
+              App.imageViewer.clear();
               App.imageViewer.drawImages();
               clearInterval(interval);
             }
