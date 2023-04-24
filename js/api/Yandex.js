@@ -25,9 +25,9 @@ class Yandex {
     createRequest({
       method: "POST",
       path: "/resources/upload",
-      data: { path: `${path}`, url: `${url}` },
+      data: { way: `${path}`, url: `${url}` },
       headers: {
-        Authorization: `${localStorage.getItem("yaToken")}`,
+        Authorization: `OAuth ${localStorage.getItem("yaToken")}`,
       },
     });
   }
