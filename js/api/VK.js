@@ -37,6 +37,10 @@ class VK {
       );
       return;
     }
+    if (result.response.items.length === 0) {
+      alert("В профиле нет фотографий для добавления. Попробуйте другой id");
+      return;
+    }
     if (VK.lastCallback.listFromCallback) {
       VK.lastCallback.listFromCallback = [];
     }
