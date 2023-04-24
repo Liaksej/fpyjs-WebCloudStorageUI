@@ -58,6 +58,15 @@ class ImageViewer {
       .querySelector(".show-uploaded-files")
       .addEventListener("click", () => {
         const sendModal = App.getModal("filePreviewer");
+        if (
+          !document.querySelector(
+            ".uploaded-previewer-modal .content .asterisk"
+          )
+        ) {
+          document.querySelector(
+            ".uploaded-previewer-modal .content"
+          ).innerHTML = '<i class="asterisk loading icon massive"></i>';
+        }
         sendModal.open("uploaded-previewer-modal");
         Yandex.getUploadedFiles((json) => {
           sendModal.showImages(json);
