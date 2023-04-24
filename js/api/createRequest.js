@@ -36,7 +36,8 @@ const createRequest = (options = {}) => {
         (options.data.way ? `?path=${options.data.way}` : "") +
         (options.data.url
           ? `&url=${encodeURIComponent(options.data.url)}`
-          : ""),
+          : "") +
+        (options.data.mediaType ? `?media_type=${options.data.mediaType}` : ""),
       {
         method: options.method,
         headers: {
@@ -44,11 +45,11 @@ const createRequest = (options = {}) => {
         },
       }
     );
+    const result = await response.json();
     if (!response.ok) {
-      let result = await response.json();
       console.log(result.message);
     } else {
-      return options.callback();
+      return options.callback(result);
     }
   }
 

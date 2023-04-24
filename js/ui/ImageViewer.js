@@ -57,10 +57,16 @@ class ImageViewer {
     this.element
       .querySelector(".show-uploaded-files")
       .addEventListener("click", () => {
-        // App.getModal();
+        const sendModal = App.getModal("filePreviewer");
+        sendModal.open("uploaded-previewer-modal");
+        Yandex.getUploadedFiles((json) => {
+          sendModal.showImages(json);
+        });
+        // sendModal.showImages(
+        //   Array.from(allSelectedImgs).map((image) => image.src)
+        // );
+
         /**
-         * В содержимом модального окна необходимо отобразить большой лоадер. Для этого используйте блок '<i class="asterisk loading icon massive"></i>'.
-         * Открывайте модальное окно с помощью метода open.
          * Получите все загруженные изображения с помощью метода Yandex.getUploadedFiles.
          * После выполнения метода (в колбеке) отрисовывайте все полученные изображения с помощью метода showImages у объекта модального окна.
          */

@@ -42,7 +42,7 @@ class Yandex {
       path: "/resources",
       data: { path: `${path}` },
       headers: {
-        Authorization: `${localStorage.getItem("yaToken")}`,
+        Authorization: `OAuth ${localStorage.getItem("yaToken")}`,
       },
     });
   }
@@ -53,10 +53,12 @@ class Yandex {
   static getUploadedFiles(callback) {
     createRequest({
       method: "GET",
-      data: "/resources/files",
+      path: "/resources/files",
+      data: { mediaType: "image" },
       headers: {
-        Authorization: `${localStorage.getItem("yaToken")}`,
+        Authorization: `OAuth ${localStorage.getItem("yaToken")}`,
       },
+      callback: callback,
     });
   }
 
