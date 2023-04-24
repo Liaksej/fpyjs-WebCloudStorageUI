@@ -5,7 +5,6 @@
 class BaseModal {
   constructor(element) {
     this.domElement = element[0];
-    this.semanticElement = element.slice(1);
   }
 
   /**
