@@ -21,7 +21,6 @@ class ImageViewer {
    */
   registerEvents() {
     // Двойной клик по превьюшке фотографии
-    this.drawImages();
     this.imageList.addEventListener("dblclick", (event) => {
       if (event.target.tagName.toLowerCase() === "img") {
         this.previewBlock.src = event.target.src;
@@ -38,7 +37,7 @@ class ImageViewer {
 
     // Клик по кнопке "Выбрать всё" / "Снять выделение"
     this.element.querySelector(".select-all").addEventListener("click", () => {
-      let allImages = Array.from(this.imageList.querySelectorAll("img"));
+      const allImages = Array.from(this.imageList.querySelectorAll("img"));
       if (allImages.some((element) => element.classList.contains("selected"))) {
         allImages.map((item) => {
           if (item.classList.contains("selected")) {
@@ -57,7 +56,7 @@ class ImageViewer {
     this.element
       .querySelector(".show-uploaded-files")
       .addEventListener("click", () => {
-        const sendModal = App.getModal("filePreviewer");
+        const getImgModal = App.getModal("filePreviewer");
 
         if (
           !document.querySelector(
@@ -69,10 +68,10 @@ class ImageViewer {
           ).innerHTML = '<i class="asterisk loading icon massive"></i>';
         }
 
-        sendModal.open("uploaded-previewer-modal");
+        getImgModal.open();
 
         Yandex.getUploadedFiles((json) => {
-          sendModal.showImages(json);
+          getImgModal.showImages(json);
         });
       });
 
@@ -81,7 +80,7 @@ class ImageViewer {
       const sendModal = App.getModal("fileUploader");
       const allSelectedImgs = this.imageList.querySelectorAll(".selected");
 
-      sendModal.open("file-uploader-modal");
+      sendModal.open();
 
       sendModal.showImages(
         Array.from(allSelectedImgs).map((image) => image.src)
@@ -100,10 +99,7 @@ class ImageViewer {
    * Отрисовывает изображения.
    */
   drawImages() {
-    if (
-      VK.lastCallback.listFromCallback &&
-      VK.lastCallback.listFromCallback.length > 0
-    ) {
+    if (VK.lastCallback.listFromCallback.length > 0) {
       this.element.querySelector(".select-all").classList.remove("disable");
       for (const image of VK.lastCallback.listFromCallback) {
         let img = document.createElement("div");
@@ -125,6 +121,7 @@ class ImageViewer {
         this.element.querySelector(".select-all").classList.add("disable");
       }
     }
+
     const selectAllBnt = this.element.querySelector(".select-all");
     if (
       Array.from(this.imageList.querySelectorAll("img")).length > 0 &&
@@ -138,7 +135,7 @@ class ImageViewer {
    * Контроллирует кнопки выделения всех изображений и отправки изображений на диск
    */
   checkButtonText() {
-    let allImages = Array.from(this.imageList.querySelectorAll("img"));
+    const allImages = Array.from(this.imageList.querySelectorAll("img"));
     const selectAllBnt = this.element.querySelector(".select-all");
     const sendBtn = this.element.querySelector(".send");
     if (allImages.some((element) => element.classList.contains("selected"))) {

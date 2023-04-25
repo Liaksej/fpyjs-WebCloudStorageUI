@@ -16,10 +16,12 @@ class PreviewModal extends BaseModal {
    * Скачивает изображение, если клик был на кнопке download
    */
   registerEvents() {
+    // Обработчик кнопки закрытия окна
     this.domElement
       .querySelector(".header .x")
       .addEventListener("click", this.close);
 
+    // Обработчик кнопок удаления фотографии и скачивания фотографии
     this.domElement
       .querySelector(".content")
       .addEventListener("click", (event) => {
@@ -47,11 +49,14 @@ class PreviewModal extends BaseModal {
   showImages(data) {
     const items = data.items.reverse();
     const arrayOfImagesHTML = [];
-    for (const image of items) {
-      arrayOfImagesHTML.push(this.getImageInfo(image));
+
+    if (data.items.length > 0) {
+      for (const image of items) {
+        arrayOfImagesHTML.push(this.getImageInfo(image));
+      }
+      this.domElement.querySelector(".content").innerHTML =
+        arrayOfImagesHTML.join("");
     }
-    this.domElement.querySelector(".content").innerHTML =
-      arrayOfImagesHTML.join("");
   }
 
   /**

@@ -26,10 +26,13 @@ class FileUploaderModal extends BaseModal {
       .querySelector(".header .x")
       .addEventListener("click", this.close);
 
+    // Обработчик кнопки закрытия окна
     this.closeButton.addEventListener("click", this.close);
 
+    // Обработчик кнопки "Отправить все"
     this.sendAllButton.addEventListener("click", this.sendAllImages.bind(this));
 
+    // Обоаботчик кнопки отправить на конкретной фотографии и поля вводы имени файла
     this.contenContainer.addEventListener("click", (event) => {
       if (
         event.target ===
@@ -40,10 +43,8 @@ class FileUploaderModal extends BaseModal {
         }
       }
       if (
-        event.target ===
-        document.querySelector(
-          ".file-uploader-modal .image-preview-container .button"
-        )
+        event.target.classList.contains("button") ||
+        event.target.classList.contains("upload")
       ) {
         this.sendImage(event.target.closest(".image-preview-container"));
       }
@@ -98,7 +99,8 @@ class FileUploaderModal extends BaseModal {
         () => {
           imageContainer.remove();
           if (
-            document.querySelectorAll(".image-preview-container").length === 0
+            document.querySelector(".file-uploader-modal .content").children
+              .length === 0
           ) {
             this.close();
           }

@@ -14,33 +14,31 @@ class SearchBlock {
    * только клик по кнопке "Заменить" перед отрисовкой очищает все отрисованные ранее изображения
    */
   registerEvents() {
-    document
-      .querySelector(".search-block")
-      .addEventListener("click", findImages);
+    this.element.addEventListener("click", findImages);
 
     function findImages(event) {
-      const input = document
-        .querySelector(".search-block")
-        .getElementsByTagName("input")[0];
+      const input = this.getElementsByTagName("input")[0];
+
       if (input.value.trim()) {
-        if (event.target === document.querySelector(".add")) {
+        // Срабатывает на кнопке .add
+        if (event.target.classList.contains("add")) {
           VK.get(input.value);
           let interval = setInterval(() => {
             if (VK.lastCallback.listFromCallback) {
-              VK.lastCallback.listFromCallback;
               App.imageViewer.drawImages();
               clearInterval(interval);
             }
           }, 0);
         }
-        if (event.target === document.querySelector(".replace")) {
+
+        // Срабатывает на кнопке .replace
+        if (event.target.classList.contains("replace")) {
           if (VK.lastCallback.listFromCallback) {
             delete VK.lastCallback.listFromCallback;
           }
           VK.get(input.value);
           let interval = setInterval(() => {
             if (VK.lastCallback.listFromCallback) {
-              VK.lastCallback.listFromCallback;
               App.imageViewer.clear();
               App.imageViewer.drawImages();
               clearInterval(interval);

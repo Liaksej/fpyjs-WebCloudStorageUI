@@ -10,8 +10,8 @@ class BaseModal {
   /**
    * Открывает всплывающее окно
    */
-  open(type) {
-    $(`.ui.modal.${type}`).modal("show");
+  open() {
+    $(`.ui.modal.${this.domElement.classList[2]}`).modal("show");
   }
 
   /**

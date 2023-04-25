@@ -16,11 +16,6 @@ class Yandex {
         prompt("Введите OAUth-токен от Яндекс.Диска")
       );
     }
-    // localStorage.removeItem("yaToken");
-    // localStorage.setItem(
-    //   "yaToken",
-    //   prompt("Введите OAUth-токен от Яндекс.Диска")
-    // );
   }
 
   /**
@@ -60,7 +55,7 @@ class Yandex {
     createRequest({
       method: "GET",
       path: "/resources/files",
-      data: { mediaType: "image" },
+      data: { mediaType: "image", limit: 1000000 },
       headers: {
         Authorization: `OAuth ${localStorage.getItem("yaToken")}`,
       },
