@@ -22,6 +22,7 @@ class SearchBlock {
       if (input.value.trim()) {
         // Срабатывает на кнопке .add
         if (event.target.classList.contains("add")) {
+          delete VK.lastCallback.listFromCallback;
           VK.get(input.value);
           let interval = setInterval(() => {
             if (VK.lastCallback.listFromCallback) {
